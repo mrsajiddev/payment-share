@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { User } from './users/user.entity';
@@ -14,8 +14,8 @@ import { MailerModule } from '@nestjs-modules/mailer';
     }),
     MailerModule.forRootAsync({
       imports: [ConfigModule],
-      inject: [ConfigModule],
-      useFactory: (config: ConfigModule) => ({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
         transport: {
           host: "smpt.google.com",
           port: 587,
