@@ -9,3 +9,4 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({whitelist: true}));
 }
 bootstrap();
+// emhg cojn ihpa kwrs

@@ -6,27 +6,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { User } from './users/user.entity';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { MailModule } from './mail/mail.module';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import * as path from 'path';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    MailerModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
-        transport: {
-          host: "smpt.google.com",
-          port: 587,
-          auth: {
-            username: "mr.sajidbwn@gmail.com",
-            password: "",
-          },
-        },
-      })
-    }),
-    TypeOrmModule.forRoot({
+     TypeOrmModule.forRoot({
       type: 'mysql', 
       host: 'localhost', 
       port: 3306, 
@@ -36,7 +25,8 @@ import { MailerModule } from '@nestjs-modules/mailer';
       entities: [User],
       synchronize: false, 
     }),
-    UsersModule
+    UsersModule,
+    MailModule
   ],
   controllers: [AppController],
   providers: [AppService],
