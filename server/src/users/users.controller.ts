@@ -7,17 +7,17 @@ import { MailService } from 'src/mail/mail.service';
 export class UsersController {
     constructor(
         private userService: UsersService,
-        // private readonly mailService: MailService
+        private readonly mailService: MailService
     ) {}    
 
     @Post("/create")
-    create( @Body() createUserDto: CreateUserDto  ) {
-        const user = this.userService.create(createUserDto);
-        // this.mailService.sendEmail(
-        //     user.email,
-        //     user.name,
-        //     'http://localhost:3000.com/'
-        // );
+    async create( @Body() createUserDto: CreateUserDto  ) {
+        const user = await this.userService.create(createUserDto);
+        this.mailService.sendEmail(
+            user.email,
+            user.fullName,
+            'http://localhost:3000/'
+        );
         return user;
     }
 }
