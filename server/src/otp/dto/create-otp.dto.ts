@@ -1,12 +1,15 @@
 // src/otp/dto/create-otp.dto.ts
-import { IsEnum, IsNumber } from 'class-validator';
+import { IsEnum, IsNumber, IsNotEmpty } from 'class-validator';
 
 export type OtpChannel = 'email' | 'sms';
 
 export class CreateOtpDto {
-  @IsNumber()
-  user_id: number;
+    @IsNumber()
+    user_id: number;
 
-  @IsEnum(['email', 'sms'])
-  channel: OtpChannel;
+    @IsEnum(['email', 'sms'])
+    channel: OtpChannel;  
+
+    @IsNotEmpty()
+    otp: string;
 }

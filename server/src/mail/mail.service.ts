@@ -7,9 +7,9 @@ export class MailService {
   constructor(private readonly mailerService: MailerService) {}
 
   /**
-   * Send welcome email using Handlebars template
+   * Send otp email using Handlebars template
    */
-  async sendEmail(to: string, name: string, actionUrl: string) {
+  async sendOTPEmail(to: string, name: string, actionUrl: string, otp: string) {
 
     try {
       const result = await this.mailerService.sendMail({
@@ -19,6 +19,7 @@ export class MailService {
         context: {
           name,
           actionUrl,
+          otp
         },
       });
 

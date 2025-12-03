@@ -7,10 +7,11 @@ export class MailController {
 
   @Get('send-welcome-mail')
   async sendEmail() {
-    return this.mailService.sendEmail(
+    return this.mailService.sendOTPEmail(
       'sajid.algolix@gmail.com',
       'Muhammad Sajid',
-      'http://localhost:3000.com/'
+      'http://localhost:3000.com/',
+      '123456'
     );
   }
 }

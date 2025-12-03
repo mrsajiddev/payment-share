@@ -7,12 +7,12 @@ import { UpdateOtpDto } from './dto/update-otp.dto';
 export class OtpController {
   constructor(private readonly otpService: OtpService) {}
 
-  @Post()
+  @Post("create")
   create(@Body() createOtpDto: CreateOtpDto) {
     return this.otpService.create(createOtpDto);
   }
 
-  @Get()
+  @Get("find-all")
   findAll() {
     return this.otpService.findAll();
   }
@@ -22,12 +22,12 @@ export class OtpController {
     return this.otpService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Patch('update:id')
   update(@Param('id') id: string, @Body() updateOtpDto: UpdateOtpDto) {
     return this.otpService.update(+id, updateOtpDto);
   }
 
-  @Delete(':id')
+  @Delete('delete:id')
   remove(@Param('id') id: string) {
     return this.otpService.remove(+id);
   }

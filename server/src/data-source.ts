@@ -18,3 +18,5 @@ const AppDataSource = new DataSource({
 });
 
 module.exports = AppDataSource;
+// default export
+export default AppDataSource;

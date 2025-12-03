@@ -2,15 +2,18 @@
 import { useEffect, useRef, useState } from "react";
 import Notice from "../components/notice/notice";
 import { NoticeProps } from "@/app/classes/noticeProps";
+import { useSearchParams } from "next/navigation";
 
 export default function OtpVerificationPage() {
+    const searchParams = useSearchParams();
+    const email = searchParams.get('email');
     const OTP_LENGTH = 6;
 
     const [otpDigits, setOtpDigits] = useState<string[]>(Array(OTP_LENGTH).fill(""));
     const inputRefs = useRef<HTMLInputElement[]>([]);
     const [timeLeft, setTimeLeft] = useState(120);
     const [isTimerActive, setIsTimerActive] = useState(true);
-    const userEmail = "user@example.com"; // replace dynamically
+    const userEmail = email; 
     const [notice, setNotice] = useState<NoticeProps | null>(null);
 
     // Timer effect

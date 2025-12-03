@@ -13,11 +13,6 @@ export class UsersController {
     @Post("/create")
     async create( @Body() createUserDto: CreateUserDto  ) {
         const user = await this.userService.create(createUserDto);
-        this.mailService.sendEmail(
-            user.email,
-            user.fullName,
-            'http://localhost:3000/'
-        );
         return user;
     }
 }

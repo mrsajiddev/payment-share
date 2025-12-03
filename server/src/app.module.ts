@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { User } from './users/user.entity';
 import { MailModule } from './mail/mail.module';
 import { OtpModule } from './otp/otp.module';
+import { Otp } from './otp/entities/otp.entity';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { OtpModule } from './otp/otp.module';
       username: 'root', 
       password: '', 
       database: 'payment-share',
-      entities: [User],
+      entities: [User, Otp],
       synchronize: false, 
     }),
     UsersModule,

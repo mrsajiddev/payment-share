@@ -3,8 +3,10 @@
 import { useState, FormEvent } from "react";
 import { RegisterPayload } from "../../classes/registerPayload";
 import Notice from "../components/notice/notice";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [notice, setNotice] = useState<{type: 'success' | 'error'; message: string } | null >(null)
 
@@ -35,6 +37,7 @@ export default function Register() {
 
       setNotice({ type: "success", message: "Account created successfully!" });
       target.reset();
+      router.push(`/auth/otp?email=${payload.email}`);
 
     } catch (err: unknown) {
       if (err instanceof Error) {
