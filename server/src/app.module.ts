@@ -1,14 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { User } from './users/user.entity';
-import { MailerModule } from '@nestjs-modules/mailer';
 import { MailModule } from './mail/mail.module';
-import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
-import * as path from 'path';
+import { OtpModule } from './otp/otp.module';
 
 @Module({
   imports: [
@@ -26,7 +24,8 @@ import * as path from 'path';
       synchronize: false, 
     }),
     UsersModule,
-    MailModule
+    MailModule,
+    OtpModule
   ],
   controllers: [AppController],
   providers: [AppService],

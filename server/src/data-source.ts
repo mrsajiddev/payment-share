@@ -1,5 +1,6 @@
-import { User } from './users/user.entity';
 import { DataSource } from 'typeorm';
+import { User } from './users/user.entity';
+import { Otp } from './otp/entities/otp.entity';
 
 const AppDataSource = new DataSource({
   type: 'mysql', // or your DB type
@@ -8,7 +9,7 @@ const AppDataSource = new DataSource({
   username: 'root',
   password: '',
   database: 'payment-share',
-  entities: [User],
+  entities: [User, Otp],
   synchronize: false,
   migrations: ['src/db/migrations/*.ts'],
   migrationsRun: false,
