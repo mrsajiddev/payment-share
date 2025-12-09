@@ -4,6 +4,7 @@ import { useState, FormEvent } from "react";
 import { RegisterPayload } from "../../classes/registerPayload";
 import Notice from "../components/notice/notice";
 import { useRouter } from "next/navigation";
+import { apiRequest } from "@/app/utils/api";
 
 export default function Register() {
   const router = useRouter();
@@ -27,13 +28,24 @@ export default function Register() {
     };
 
     try {
-      const res = await fetch("http://localhost:3001/users/create", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+
+      const res = await apiRequest({
+        apiEndPoint: "/users/create", 
+        method: "POST", 
+        body: payload
       });
 
-      if (!res.ok) throw new Error("Failed to create account");
+      console.log(">>>> Response: ", res);
+      // If response is array or object table compatible:
+      console.table(res.data);
+
+      // const res = await fetch("http://localhost:3001/users/create", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(payload),
+      // });
+
+      // if (!res.ok) throw new Error("Failed to create account");
 
       setNotice({ type: "success", message: "Account created successfully!" });
       target.reset();

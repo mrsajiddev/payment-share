@@ -3,11 +3,14 @@ import { useEffect, useRef, useState } from "react";
 import Notice from "../components/notice/notice";
 import { NoticeProps } from "@/app/classes/noticeProps";
 import { useSearchParams } from "next/navigation";
+import { apiRequest } from "@/app/utils/api";
+import { useRouter } from "next/navigation";
 
 export default function OtpVerificationPage() {
     const searchParams = useSearchParams();
     const email = searchParams.get('email');
     const OTP_LENGTH = 6;
+    const router = useRouter();
 
     const [otpDigits, setOtpDigits] = useState<string[]>(Array(OTP_LENGTH).fill(""));
     const inputRefs = useRef<HTMLInputElement[]>([]);
@@ -68,13 +71,45 @@ export default function OtpVerificationPage() {
     };
 
     // Verify OTP
-    const verifyOtp = () => {
-    const otpCode = otpDigits.join("");
-    if (otpCode.length !== OTP_LENGTH) return setNotice({type: "error", message: "Enter full OTP."});
-    if (timeLeft <= 0) return setNotice({type: "warning", message: "OTP expired. Please resend."});
+    const verifyOtp = async () => {
+        const otpCode = otpDigits.join("");
+        if (otpCode.length !== OTP_LENGTH) return setNotice({type: "error", message: "Enter full OTP."});
+        if (timeLeft <= 0) return setNotice({type: "warning", message: "OTP expired. Please resend."});
+        const payload = {
+            email: email,
+            otp: otpCode
+        }
 
-    // alert("Verifying OTP: " + otpCode);
-    setNotice({type: "success", message: "Verifying OTP: " + otpCode });
+        try{
+            const response = await apiRequest({
+                apiEndPoint: "/otp/verify",
+                method: "POST",
+                body: payload
+            });
+            console.table( response );
+            if( response.success === true ) {
+                setNotice({type: "success", message: response.message });
+                    await fetch("/api/auth/set-cookie", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                    token: response.data.token,
+                    user: response.data.user
+                })
+            });
+                router.push("/dashboard/");
+            } else {
+                setNotice({type: "error", message: response.message });
+            }
+        } catch(err: unknown) {
+            if (err instanceof Error) {
+                console.error(err);
+                setNotice({ type: "error", message: err.message });
+            } else {
+                console.error(err);
+                setNotice({ type: "error", message: "Unknown error creating account" });
+            }
+        }
     };
 
     // Resend OTP

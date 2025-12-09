@@ -6,6 +6,8 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { ConfigModule } from '@nestjs/config';
 import { getJwtConfig } from 'src/common/jwt_secret';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from 'src/users/user.entity';
 
 const { secret, expiresIn } = getJwtConfig();
 
@@ -15,6 +17,7 @@ const { secret, expiresIn } = getJwtConfig();
     ConfigModule.forRoot({ 
       isGlobal: true
     }),
+    TypeOrmModule.forFeature([User]),
     PassportModule,
     JwtModule.register({
       secret: secret,

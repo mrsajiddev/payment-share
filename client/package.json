@@ -11,7 +11,12 @@
   "dependencies": {
     "@nestjs-modules/mailer": "^2.0.2",
     "@nestjs/config": "^4.0.2",
+    "@next/env": "^16.0.7",
+    "@types/cookie": "^1.0.0",
     "@types/nodemailer": "^7.0.4",
+    "cookie": "^1.1.1",
+    "jsonwebtoken": "^9.0.3",
+    "lucide-react": "^0.556.0",
     "next": "16.0.3",
     "nodemailer": "^7.0.11",
     "postcss": "^8.5.6",
