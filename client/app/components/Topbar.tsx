@@ -7,10 +7,11 @@ import { useRouter } from 'next/navigation';
 
 interface TopbarProps {
   onMenuClick: () => void;
-  user: any
+  user: any,
+  pageTitle: string,
 }
 
-export default function Topbar({ onMenuClick, user }: TopbarProps) {
+export default function Topbar({ onMenuClick, user, pageTitle }: TopbarProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -76,7 +77,7 @@ export default function Topbar({ onMenuClick, user }: TopbarProps) {
         >
           <Menu className="h-6 w-6" />
         </button>
-        <h1 className="text-lg font-semibold text-gray-900">Dashboard</h1>
+        <h1 className="text-lg font-semibold text-gray-900">{pageTitle ? pageTitle : 'Dashboard' }</h1>
       </div>
 
       {/* Right: Icons group */}

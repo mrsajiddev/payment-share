@@ -80,7 +80,7 @@ const navigation: MenuItem[] = [
     icon: Users, 
     current: false,
     submenu: [
-      { name: 'All Users', href: '/users/all', icon: Users },
+      { name: 'All Users', href: '/dashboard/users', icon: Users },
       { name: 'Add New User', href: '/users/add', icon: UserPlus },
       { name: 'User Roles', href: '/users/roles', icon: UserCog },
       { name: 'User Activity', href: '/users/activity', icon: History },
